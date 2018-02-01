@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html ng-app="HomeApp" lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SmartMuseum</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/creative.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-route.js"></script>
+
+  </head>
+  <body ng-controller="HomeCtrl" id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">SmartMuseum</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                 <!-- Link or button for dropdown -->
+                 <a data-toggle="dropdown" href="#museumL" class="nav-link js-scroll-trigger">Museums</a>
+                <!-- div class="dropdown" ng-controller="HomeCtrl">
+                 <!-- Menu dropdown
+                 <ul class="dropdown-menu ml-auto" >
+                     <div ng-repeat="museum in museums">
+                        <li>{{museum.name}}</li>
+                     </div>
+                 </ul>
+                </div-->
+                </li>
+              <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">contact</a>
+            </li>
+              <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="../backoffice/login.html">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="masthead text-center text-white d-flex">
+      <div class="container my-auto">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <h1 class="text-uppercase">
+              <strong >{{vm.museum.name}}</strong>
+            </h1>
+            <hr>
+          </div>
+          <div class="col-lg-8 mx-auto">
+            <p class="text-faded mb-5">{{vm.museum.description}}</p>
+            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#contact">Find Out More</a>
+          </div>
+        </div>
+      </div>
+    </header>
+    </br>  
+    <section class="p-0" id="museumL">
+      <div class="container-fluid p-0" ng-controller="HomeCtrl">
+          <div class="row no-gutters popup-gallery" >
+          <div class="col-lg-4 col-sm-6" ng-repeat="museum in museums">
+            <a class="portfolio-box" href="img/portfolio/fullsize/1.jpg">
+              <img class="img-fluid" src="img/portfolio/thumbnails/1.jpg" alt="">
+              <div  class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded" href="http://localhost:8080/home/index.html?id={{museum.id}}">
+                    {{museum.name}}
+                  </div>
+                  <div class="museum-name" >
+                    {{museum.description}}
+                  </div>
+                </div>
+              </div>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-heading">Let's Get In Touch!</h2>
+            <hr class="my-4">
+            <p class="mb-5">Come and visit us!</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 ml-auto text-center">
+            <i class="fa fa-phone fa-3x mb-3 sr-contact"></i>
+            <p>555-123-456</p>
+          </div>
+          <div class="col-lg-4 mr-auto text-center">
+            <i class="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
+            <p>
+              <a href="mailto:your-email@your-domain.com">{{vm.museum.email}}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/creative.min.js"></script>
+    
+    <script>
+    var app = angular.module('HomeApp',['ngRoute'])
+        .config(function($routeProvider, $locationProvider) {
+            $locationProvider.html5Mode({
+                    enabled: true,
+                    requireBase: false
+                });
+            $routeProvider.when("/home", {
+                    templateUrl : "home/index.html",
+                    controller : "LoginCtrl"
+                });
+            });
+    app.controller('HomeCtrl', function ($window,$location, $scope, $http) {
+        $scope.vm = [];
+        $scope.vm.museum = [];
+        $scope.id = $location.search().id;
+        if(typeof $scope.id == "undefined"){
+            $scope.vm.museum.name = "SmartMuseum";
+            $scope.vm.museum.description = "SmartMuseum is the new experience in museums. Use the last technology, you just need your smartphone";
+            $scope.vm.museum.email = "fake@smartmuseum.com";
+                
+        } else {
+            $http.get("/user/museum/"+$scope.id).then(function (res) {
+                $scope.vm.museum = res.data;
+            });
+        }
+        $http.get("/user/museums").then(function (res) {
+            $scope.museums = res.data;    
+        });
+    });
+
+    </script>
+  </body>
+
+</html>
